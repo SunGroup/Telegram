@@ -10,6 +10,18 @@ screen ./launch.sh
 
 ```
 
+
+```
+
+sed -i "s/root/$(whoami)/g" etc/upstart.conf
+sed -i "s_Telegram_$(pwd)_g" etc/upstart.conf
+sudo cp etc/upstart.conf /etc/init/
+
+sudo start upstart
+sudo stop upstart
+
+
+```
 ## ــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
 
 
