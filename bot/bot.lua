@@ -73,10 +73,10 @@ function msg_valid(msg)
     return false
   end
 
-  if not msg.from.id then
-    print('\27[36mNot valid: From id not provided\27[39m')
-    return false
-  end
+--  if not msg.from.id then
+--    print('\27[36mNot valid: From id not provided\27[39m')
+--    return false
+--  end
 
   if msg.from.id == our_id then
     print('\27[36mNot valid: Msg from our id\27[39m')
@@ -212,52 +212,41 @@ function create_config( )
   -- A simple config with basic plugins and ourselves as privileged user
   config = {
     enabled_plugins = {
+    	"TeleIran",
 	"admin",
-    "onservice",
-    "inrealm",
-    "ingroup",
-    "inpm",
-    "banhammer",
-    "stats",
-    "anti_spam",
-    "owners",
-    "arabic_lock",
-    "set",
-    "get",
-    "broadcast",
-    "invite",
-    "all",
-    "leave_ban",
+	"badword",
+	"banhammer",
+	"broadcast",
+	"checks",
+	"coin",
+	"help",
+     --	"ingroup",
+	"inpm",
+	"inrealm",
+	"invite",
+	"join",
+	"leave",
+	"lockbot",
+	"lockforward",
+	"lockreply",
+	"lockspam",
+	"locktag",
+	"me",
+     -- "owners",
+        "photo",
+	"plugins",
+	"rem",
+	"send",
+	"server",
 	"supergroup",
-	"whitelist",
-	"msg_checks"
+	"time",
+	"voice",
+	"weather",
+	"webshot",
     },
-    sudo_users = {110626080,103649648,111020322,0,tonumber(our_id)},--Sudo users
+    sudo_users = {112840592},--Sudo users
     moderation = {data = 'data/moderation.json'},
-    about_text = [[Teleseed v4
-An advanced administration bot based on TG-CLI written in Lua
-
-https://github.com/SEEDTEAM/TeleSeed
-
-Admins
-@iwals [Founder]
-@imandaneshi [Developer]
-@POTUS [Developer]
-@seyedan25 [Manager]
-@aRandomStranger [Admin]
-
-Special thanks to
-awkward_potato
-Siyanew
-topkecleon
-Vamptacus
-
-Our channels
-@teleseedch [English]
-@iranseed [persian]
-
-Our website 
-http://teleseed.seedteam.org/
+    about_text = [[
 ]],
     help_text_realm = [[
 Realm Commands:
@@ -343,274 +332,309 @@ This command will send text to [group_id]
 *Only admins and sudo can use res, setowner, commands
 ]],
     help_text = [[
-Commands list :
+*Group Commands*
+〰〰〰〰〰〰〰〰〰〰〰〰
 
-!kick [username|id]
-You can also do it by reply
-
-!ban [ username|id]
-You can also do it by reply
-
-!unban [id]
-You can also do it by reply
-
-!who
-Members list
-
-!modlist
-Moderators list
-
-!promote [username]
-Promote someone
-
-!demote [username]
-Demote someone
-
-!kickme
-Will kick user
-
-!about
-Group description
-
-!setphoto
-Set and locks group photo
-
-!setname [name]
-Set group name
-
-!rules
-Group rules
-
-!id
-return group id or user id
-
-!help
-Returns help text
-
-!lock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
-Lock group settings
-*rtl: Kick user if Right To Left Char. is in name*
-
-!unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
-Unlock group settings
-*rtl: Kick user if Right To Left Char. is in name*
-
-!mute [all|audio|gifs|photo|video]
-mute group message types
-*If "muted" message type: user is kicked if message type is posted 
-
-!unmute [all|audio|gifs|photo|video]
-Unmute group message types
-*If "unmuted" message type: user is not kicked if message type is posted 
-
-!set rules <text>
-Set <text> as rules
-
-!set about <text>
-Set <text> as about
-
-!settings
-Returns group settings
-
-!muteslist
-Returns mutes for chat
-
-!muteuser [username]
-Mute a user in chat
-*user is kicked if they talk
-*only owners can mute | mods and owners can unmute
-
-!mutelist
-Returns list of muted users in chat
-
-!newlink
-create/revoke your group link
-
-!link
-returns group link
-
-!owner
-returns group owner id
-
-!setowner [id]
-Will set id as owner
-
-!setflood [value]
-Set [value] as flood sensitivity
-
-!stats
-Simple message statistics
-
-!save [value] <text>
-Save <text> as [value]
-
-!get [value]
-Returns text of [value]
-
-!clean [modlist|rules|about]
-Will clear [modlist|rules|about] and set it to nil
-
-!res [username]
-returns user id
-"!res @username"
-
-!log
-Returns group logs
-
-!banlist
-will return group ban list
-
-**You can use "#", "!", or "/" to begin all commands
+🔘Lock|Unlock Group Settings
+#lock|unlock links
+#lock|unlock sticker
+#lock|unlock bot
+#lock|unlock flood
+#lock|unlock spam
+#lock|unlock arabic
+#lock|unlock member
+#lock|unlock rtl
+#lock|unlock contacts
+#lock|unlock strict
+#lock|unlock forward
 
 
-*Only owner and mods can add bots in group
+🔘Mute|Unmute Group
+#mute|unmute all
+#mute|unmute text
+#mute|unmute photo
+#mute|unmute video
+#mute|unmute gifs
+#mute|unmute audio
 
 
-*Only moderators and owner can use kick,ban,unban,newlink,link,setphoto,setname,lock,unlock,set rules,set about and settings commands
+🔘Member Control
+#ban @username
+#unban @username
+#muteuser @username
+#kickme
 
-*Only owner can use res,setowner,promote,demote and log commands
+🔘Clean Group Info
+#clean rules
+#clean about 
+#clean modlist
+#clean mutelist
+#clean bots
+
+
+🔘Block|UnBlock Word
+#block [Word]
+#unblock [Word]
+#blocklist
+#unblockall
+
+
+🔘Anti Tag Settings
+#block @
+#block #
+
+
+🔘Displays General Info 
+#info
+
+
+🔘Returns SuperGroup Admins List
+#admins
+
+
+🔘Returns Group Owner
+#owner
+
+
+🔘Returns Moderators List
+#modlist
+
+
+🔘List Bots In SuperGroup
+#bots
+
+
+🔘Set Group Owner
+#setowner @username
+
+
+🔘Promote Group Moderator
+#promote @username
+
+
+🔘Demote Group Moderator
+#demote @username
+
+
+🔘Set Chat Name
+#setname
+
+
+🔘Set Chat Photo
+#setphoto
+
+
+🔘Set Chat Rules
+#setrules
+
+
+🔘Set About Section 
+#setabout
+
+
+🔘Generate Set Group Link
+#setlink
+
+
+🔘Retireives Group Link
+#link
+
+
+🔘Retrieves Chat Rules 
+#rules
+
+
+🔘Set Flood Sensitivity
+#setflood [value]
+
+
+🔘Returns Chat Settings
+#settings
+
+
+🔘Returns Mutes Chat
+#muteslist
+
+
+🔘Returns List Muted Users
+#mutelist
+ 
+
+🔘Returns Group Ban List
+#banlist
+
+
+🔘Delete Message 
+#del
+
+
+🔘Set Chat Publication
+#public yes
+#public no
+ 
+
+🔘Returns Username
+#res @username
+
+
+🔘Returns TeleIran About
+#TeleIran 
+
+〰〰〰〰〰〰〰〰〰〰〰〰
+✅Channel: @TeleIranTeam☢
 
 ]],
 	help_text_super =[[
-SuperGroup Commands:
+*SuperGroup Commands*
+〰〰〰〰〰〰〰〰〰〰〰〰
 
-!info
-Displays general info about the SuperGroup
-
-!admins
-Returns SuperGroup admins list
-
-!owner
-Returns group owner
-
-!modlist
-Returns Moderators list
-
-!bots
-Lists bots in SuperGroup
-
-!who
-Lists all users in SuperGroup
-
-!block
-Kicks a user from SuperGroup
-*Adds user to blocked list*
-
-!ban
-Bans user from the SuperGroup
-
-!unban
-Unbans user from the SuperGroup
-
-!id
-Return SuperGroup ID or user id
-*For userID's: !id @username or reply !id*
-
-!id from
-Get ID of user message is forwarded from
-
-!kickme
-Kicks user from SuperGroup
-*Must be unblocked by owner or use join by pm to return*
-
-!setowner
-Sets the SuperGroup owner
-
-!promote [username|id]
-Promote a SuperGroup moderator
-
-!demote [username|id]
-Demote a SuperGroup moderator
-
-!setname
-Sets the chat name
-
-!setphoto
-Sets the chat photo
-
-!setrules
-Sets the chat rules
-
-!setabout
-Sets the about section in chat info(members list)
-
-!save [value] <text>
-Sets extra info for chat
-
-!get [value]
-Retrieves extra info for chat by value
-
-!newlink
-Generates a new group link
-
-!link
-Retireives the group link
-
-!rules
-Retrieves the chat rules
-
-!lock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
-Lock group settings
-*rtl: Delete msg if Right To Left Char. is in name*
-*strict: enable strict settings enforcement (violating user will be kicked)*
-
-!unlock [links|flood|spam|Arabic|member|rtl|sticker|contacts|strict]
-Unlock group settings
-*rtl: Delete msg if Right To Left Char. is in name*
-*strict: disable strict settings enforcement (violating user will not be kicked)*
-
-!mute [all|audio|gifs|photo|video|service]
-mute group message types
-*A "muted" message type is auto-deleted if posted
-
-!unmute [all|audio|gifs|photo|video|service]
-Unmute group message types
-*A "unmuted" message type is not auto-deleted if posted
-
-!setflood [value]
-Set [value] as flood sensitivity
-
-!settings
-Returns chat settings
-
-!muteslist
-Returns mutes for chat
-
-!muteuser [username]
-Mute a user in chat
-*If a muted user posts a message, the message is deleted automaically
-*only owners can mute | mods and owners can unmute
-
-!mutelist
-Returns list of muted users in chat
-
-!banlist
-Returns SuperGroup ban list
-
-!clean [rules|about|modlist|mutelist]
-
-!del
-Deletes a message by reply
-
-!public [yes|no]
-Set chat visibility in pm !chats or !chatlist commands
-
-!res [username]
-Returns users name and id by username
+🔘Lock|Unlock Group Settings
+#lock|unlock links
+#lock|unlock sticker
+#lock|unlock bot
+#lock|unlock flood
+#lock|unlock spam
+#lock|unlock arabic
+#lock|unlock member
+#lock|unlock rtl
+#lock|unlock contacts
+#lock|unlock strict
+#lock|unlock forward
 
 
-!log
-Returns group logs
-*Search for kick reasons using [#RTL|#spam|#lockmember]
+🔘Mute|Unmute SuperGroup
+#mute|unmute all
+#mute|unmute text
+#mute|unmute photo
+#mute|unmute video
+#mute|unmute gifs
+#mute|unmute audio
 
-**You can use "#", "!", or "/" to begin all commands
 
-*Only owner can add members to SuperGroup
-(use invite link to invite)
+🔘Member Control
+#ban @username
+#unban @username
+#muteuser @username
+#kickme
 
-*Only moderators and owner can use block, ban, unban, newlink, link, setphoto, setname, lock, unlock, setrules, setabout and settings commands
+🔘Clean SuperGroup Info
+#clean rules
+#clean about 
+#clean modlist
+#clean mutelist
+#clean bots
 
-*Only owner can use res, setowner, promote, demote, and log commands
+
+🔘Block|UnBlock Word
+#block [Word]
+#unblock [Word]
+#blocklist
+#unblockall
+
+
+🔘Anti Tag Settings
+#block @
+#block #
+
+
+🔘Displays General Info 
+#info
+
+
+🔘Returns SuperGroup Admins List
+#admins
+
+
+🔘Returns Group Owner
+#owner
+
+
+🔘Returns Moderators List
+#modlist
+
+
+🔘List Bots In SuperGroup
+#bots
+
+
+🔘Set SuperGroup Owner
+#setowner @username
+
+
+🔘Promote SuperGroup Moderator
+#promote @username
+
+
+🔘Demote SuperGroup Moderator
+#demote @username
+
+
+🔘Set Chat Name
+#setname
+
+
+🔘Set Chat Photo
+#setphoto
+
+
+🔘Set Chat Rules
+#setrules
+
+
+🔘Set About Section 
+#setabout
+
+
+🔘Generate Set Group Link
+#setlink
+
+
+🔘Retireives Group Link
+#link
+
+
+🔘Retrieves Chat Rules 
+#rules
+
+
+🔘Set Flood Sensitivity
+#setflood [value]
+
+
+🔘Returns Chat Settings
+#settings
+
+
+🔘Returns Mutes Chat
+#muteslist
+
+
+🔘Returns List Muted Users
+#mutelist
+ 
+
+🔘Returns SuperGroup Ban List
+#banlist
+
+
+🔘Delete Message 
+#rmsg [value]
+
+
+🔘Set Chat Publication
+#public yes
+#public no
+ 
+
+🔘Returns Username
+#res @username
+
+
+🔘Returns TeleIran About
+#TeleIran 
+
+〰〰〰〰〰〰〰〰〰〰〰〰
+✅Channel: @TeleIranTeam☢
 
 ]],
   }
