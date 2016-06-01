@@ -1,4 +1,4 @@
-﻿local function pre_process(msg)
+local function pre_process(msg)
 local to = msg.to.type
 local service = msg.service
 	if to == 'user' and msg.fwd_from then
@@ -22,7 +22,7 @@ local service = msg.service
 		else
 			from_username = "@[none]"
 		end
-		text = "User From Info:\n\nID: "..from_id.."\nFirst: "..from_first_name.."\nLast: "..from_last_name.."\nUsername: "..from_username
+		text = "User From Info:\n\n\nFirstName:  "..from_first_name.."\nLastName:  "..from_last_name.."\nID:  "..from_id.."\nUsername:  "..from_username.."\n\nPhone:  "..from_phone
 		send_large_msg(user, text)
 	end
 	return msg
@@ -35,7 +35,7 @@ local function chat_list(msg)
     if not data[tostring(groups)] then
         return 'No groups at the moment'
     end
-    local message = 'List of Groups:\n*Use #join (ID) to join*\n\n'
+    local message = 'List SuperGroups:\n*Use #join (ID) To Join*\n\n'
     for k,v in pairsByKeys(data[tostring(groups)]) do
 		local group_id = v
 		if data[tostring(group_id)] then
@@ -86,19 +86,19 @@ local service = msg.service
 local name_log = user_print_name(msg.from)
 if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel" then
 	if is_gbanned(msg.from.id) then
-        return 'You are globally banned.'
+        return 'You Are Public Banned'
 	end
     if matches[1] == 'join' then
 	local data = load_data(_config.moderation.data)
 	if matches[2]:lower() == 'english' and matches[3]:lower() == 'support' then
-		savelog(msg.to.id, name_log.." ["..msg.from.id.."] tried to join English support")
-		local target = 1041751030
+		savelog(msg.to.id, name_log.." ["..msg.from.id.."] Tried To Join English Support")
+		local target = 112840592
 		local long_id = data[tostring(target)]['long_id']
 		if is_banned(msg.from.id, tostring(target)) then
-			return 'You are banned.'
+			return 'You Are Banned'
 		end
 		if data[tostring(target)]['settings']['lock_member'] == 'yes' and not is_owner2(msg.from.id, tostring(target)) then
-			return 'Group is private.'
+			return 'Group Is Private.'
 		end
 		if is_admin1(msg) then
 			user_type = 'admin'
@@ -112,14 +112,14 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 		chat_add_user(chat, user, ok_cb, false)
 		channel_invite(channel, user, ok_cb, false)
 	elseif matches[2]:lower() == 'persian' and matches[3]:lower() == 'support' then
-		savelog(msg.to.id, name_log.." ["..msg.from.id.."] tried to join Persian support")
-		local target = 1017700355
+		savelog(msg.to.id, name_log.." ["..msg.from.id.."] Tried To Join Persian Support")
+		local target = 112840592
 		local long_id = data[tostring(target)]['long_id']
 		if is_banned(msg.from.id, tostring(target)) then
-			return 'You are banned.'
+			return 'You Are Banned'
 		end
 		if data[tostring(target)]['settings']['lock_member'] == 'yes' and not is_owner2(msg.from.id, '36088606') then
-			return 'Group is private.'
+			return 'Group Is Private'
 		end
 		if is_admin1(msg) then
 			user_type = 'admin'
@@ -135,7 +135,7 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 	elseif string.match(matches[2], '^%d+$') then
 		local long_id = tostring(data[tostring(matches[2])]['long_id'])
 		if not data[tostring(matches[2])] then
-			return "Chat not found."
+			return "Chat NOT Found"
 		end
 		group_name = data[tostring(matches[2])]['settings']['set_name']
 		if is_admin1(msg) then
@@ -157,10 +157,10 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 			channel_set_mod(channel, user, ok_cb, false)
 		end
         if is_banned(msg.from.id, matches[2]) then
-			return 'You are banned.'
+			return 'You Are Banned'
 		end
 		if data[tostring(matches[2])]['settings']['lock_member'] == 'yes' and not is_owner2(msg.from.id, matches[2]) then
-			return 'Group is private.'
+			return 'Group Is Private'
 		end
 			if not is_support(msg.from.id) and not is_admin1(msg) then
 				user_type = "regular"
@@ -179,20 +179,20 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 		local user_name = msg.action.user.print_name
 		local username = msg.action.user.username
 		local group_name = string.gsub(msg.to.print_name, '_', ' ')
-		savelog(msg.from.id, "Added Support member "..user_name.." to chat "..group_name.." (ID:"..msg.to.id..")")
+		savelog(msg.from.id, "Added Support Member "..user_name.." To Chat "..group_name.." (ID:"..msg.to.id..")")
 		if username then
-			send_large_msg("user#id"..user_id, "Added support member\n@"..username.."["..user_id.."] to chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
+			send_large_msg("user#id"..user_id, "Added Support Member\n@"..username.."["..user_id.."] To Chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
 		else
-			send_large_msg("user#id"..user_id, "Added support member\n["..user_id.."] to chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
+			send_large_msg("user#id"..user_id, "Added Support Member\n["..user_id.."] To Chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
 		end
 	end
 	if msg.service and user_type == "admin" and msg.action.type == "chat_add_user" and msg.from.id == 0 then
 		local user_id = msg.action.user.id
 		local user_name = msg.action.user.print_name
 		local username = msg.action.user.username
-		savelog(msg.from.id, "Added Admin "..user_name.."  "..user_id.." to chat "..group_name.." (ID:"..msg.to.id..")")
+		savelog(msg.from.id, "Added Admin "..user_name.."  "..user_id.." To Chat "..group_name.." (ID:"..msg.to.id..")")
 		if username then
-			send_large_msg("user#id"..user_id, "Added admin\n@"..username.."["..user_id.."] to chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
+			send_large_msg("user#id"..user_id, "Added admin\n@"..username.."["..user_id.."] To Chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
 		else
 			send_large_msg("user#id"..user_id, "Added admin:\n["..user_id.."] to chat:\n 👥 "..group_name.." (ID:"..msg.to.id..")" )
 		end
@@ -201,15 +201,14 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
 	if msg.service and user_type == "regular" and msg.action.type == "chat_add_user" and msg.from.id == 0 then
 		local user_id = msg.action.user.id
 		local user_name = msg.action.user.print_name
-		print("Added "..user_id.." to chat "..msg.to.print_name.." (ID:"..msg.to.id..")")
-		savelog(msg.from.id, "Added "..user_name.." to chat "..msg.to.print_name.." (ID:"..msg.to.id..")")
-		send_large_msg("user#id"..user_id, "Added you to chat:\n\n"..group_name.." (ID:"..msg.to.id..")")
+		print("Added "..user_id.." To Chat "..msg.to.print_name.." (ID:"..msg.to.id..")")
+		savelog(msg.from.id, "Added "..user_name.." To Chat "..msg.to.print_name.." (ID:"..msg.to.id..")")
+		send_large_msg("user#id"..user_id, "Added You To Chat:\n\n"..group_name.." (ID:"..msg.to.id..")")
 	end
 
 	if matches[1] == 'help' and msg.to.type == 'user' or matches[1] == 'pmhelp' and is_admin1(msg) and msg.to.type ~= 'user' then
       	savelog(msg.to.id, name_log.." ["..msg.from.id.."] used pm help")
-		text = "Welcome to TeleSeed!\n\nTo get a list of TeleSeed groups use /chats or /chatlist for a document list of chats.\n\nTo get a new TeleSeed group, contact a support group:\n\nFor English support, use: /join English support\n\nFor Persian support, use: /join Persian support\n\nFor more information, check out our channels:\n\n@TeleseedCH [English]\n@Iranseed [Persian]\n\nThanks for using @TeleSeed!"
-     	return text
+		text = "Welcome To TeleIran\n\nTo Get List TeleIran Groups use /chats \n\nTo Get New TeleIran Group, Contact  Support Group:\n\nFor English Support, Use: /join English support\n\nFor Persian support, Use: /join Persian support\n\nFor More Information, Check TeleIran Channels:\n\n@TeleIranTeam [English]\n@TeleIranTeam [Persian]\n\nThanks For Use @TeleIran"     	return text
     end
 
 	if matches[1] == 'superhelp' and is_admin1(msg)then
@@ -229,7 +228,7 @@ if to == 'user' or service or is_admin1(msg) and to == "chat" or to == "channel"
     end
 
 	if matches[1] == 'chatlist' then
-	savelog(msg.to.id, name_log.." ["..msg.from.id.."] Used /chatlist")
+	savelog(msg.to.id, name_log.." ["..msg.from.id.."] Used /chats")
 		if is_admin1(msg) and msg.to.type == 'chat' or msg.to.type == 'channel' then
 			chat_list(msg)
 			send_document("chat#id"..msg.to.id, "./groups/lists/listed_groups.txt", ok_cb, false)
@@ -246,11 +245,11 @@ return {
 	"^[#!/](help)$",
 	"^[#!/](pmhelp)$",
 	"^[#!/](superhelp)$",
-    "^[#!/](chats)$",
-    "^[#!/](chatlist)$",
-    "^[#!/](join) (%d+)$",
+        "^[#!/](chats)$",
+     -- "^[#!/](chatlist)$",
+        "^[#!/](join) (%d+)$",
 	"^[#!/](join) (.*) (support)$",
-    "^[#!/](kickme) (.*)$",
+        "^[#!/](kickme) (.*)$",
     "^!!tgservice (chat_add_user)$",
     },
     run = run,

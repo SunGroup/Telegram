@@ -1,6 +1,6 @@
 do
 
--- Check Member
+
 local function check_member_autorealm(cb_extra, success, result)
   local receiver = cb_extra.receiver
   local data = cb_extra.data
@@ -89,7 +89,7 @@ function check_member_group(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'You have been promoted as the owner.')
+      return send_large_msg(receiver, 'You have been promoted as the owner')
     end
   end
 end
@@ -122,7 +122,7 @@ local function check_member_modadd(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = msg.to.id
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'Group is added and you have been promoted as the owner ')
+      return send_large_msg(receiver, 'Group Has Been Install')
     end
   end
 end
@@ -157,7 +157,7 @@ local function check_member_realmrem(cb_extra, success, result)
       end
       data[tostring(realms)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'Realm has been removed!')
+      return send_large_msg(receiver, 'Realm Has Been UnInstall')
     end
   end
 end
@@ -178,14 +178,14 @@ local function check_member_modrem(cb_extra, success, result)
       end
       data[tostring(groups)][tostring(msg.to.id)] = nil
       save_data(_config.moderation.data, data)
-      return send_large_msg(receiver, 'Group has been removed')
+      return send_large_msg(receiver, 'Group Has Been UnInstall')
     end
   end
 end
 --End Check Member
 function show_group_settingsmod(msg, target)
  	if not is_momod(msg) then
-    	return "For moderators only!"
+    	return "For moderators Only"
   	end
   	local data = load_data(_config.moderation.data)
     if data[tostring(target)] then

@@ -6,11 +6,11 @@ local function set_bot_photo(msg, success, result)
     os.rename(result, file)
     print('File moved to:', file)
     set_profile_photo(file, ok_cb, false)
-    send_large_msg(receiver, 'Photo changed!', ok_cb, false)
+    send_large_msg(receiver, 'Photo Changed', ok_cb, false)
     redis:del("bot:photo")
   else
-    print('Error downloading: '..msg.id)
-    send_large_msg(receiver, 'Failed, please try again!', ok_cb, false)
+    print('Error Downloading: '..msg.id)
+    send_large_msg(receiver, 'Failed. Please Try Again', ok_cb, false)
   end
 end
 
@@ -41,7 +41,7 @@ local function logrem(msg)
 	end
 	data[tostring(GBan_log)][tostring(msg.to.id)] = nil
 	save_data(_config.moderation.data, data)
-	local text = 'Log_SuperGroup has has been removed!'
+	local text = 'Log SuperGroup Has Been Removed'
 	reply_msg(msg.id,text,ok_cb,false)
 	return
 end
@@ -167,35 +167,35 @@ local function run(msg,matches)
     end
     if matches[1] == "setbotphoto" then
     	redis:set("bot:photo", "waiting")
-    	return 'Please send me bot photo now'
+    	return 'Please Send Me BOT Photo Now'
     end
     if matches[1] == "markread" then
     	if matches[2] == "on" then
     		redis:set("bot:markread", "on")
-    		return "Mark read > on"
+    		return "Mark Read Has Been ON"
     	end
     	if matches[2] == "off" then
     		redis:del("bot:markread")
-    		return "Mark read > off"
+    		return "Mark Read Has Been OFF"
     	end
     	return
     end
     if matches[1] == "pm" then
     	local text = "Message From "..(msg.from.username or msg.from.last_name).."\n\nMessage : "..matches[3]
     	send_large_msg("user#id"..matches[2],text)
-    	return "Message has been sent"
+    	return "Message Has Been Sent"
     end
     
     if matches[1] == "pmblock" then
     	if is_admin2(matches[2]) then
-    		return "You can't block admins"
+    		return "You Can't Block Admins"
     	end
     	block_user("user#id"..matches[2],ok_cb,false)
-    	return "User blocked"
+    	return "User Blocked"
     end
     if matches[1] == "pmunblock" then
     	unblock_user("user#id"..matches[2],ok_cb,false)
-    	return "User unblocked"
+    	return "User UnBlocked"
     end
     if matches[1] == "import" then--join by group link
     	local hash = parsed_url(matches[2])
@@ -206,21 +206,21 @@ local function run(msg,matches)
     		return
     	end
       get_contact_list(get_contact_list_callback, {target = msg.from.id})
-      return "I've sent contact list with both json and text format to your private"
+      return "I've Sent Contact List With Both Json & Text Format To Your Private"
     end
     if matches[1] == "delcontact" then
 	    if not is_sudo(msg) then-- Sudo only
     		return
     	end
       del_contact("user#id"..matches[2],ok_cb,false)
-      return "User "..matches[2].." removed from contact list"
+      return "User "..matches[2].." Removed From Contact List"
     end
     if matches[1] == "addcontact" and is_sudo(msg) then
     phone = matches[2]
     first_name = matches[3]
     last_name = matches[4]
     add_contact(phone, first_name, last_name, ok_cb, false)
-   return "User With Phone +"..matches[2].." has been added"
+   return "User With Phone +"..matches[2].." Has Been Added"
 end
  if matches[1] == "sendcontact" and is_sudo(msg) then
     phone = matches[2]
@@ -230,7 +230,7 @@ end
 end
  if matches[1] == "mycontact" and is_sudo(msg) then
 	if not msg.from.phone then
-		return "I must Have Your Phone Number!"
+		return "I Must Have Your Phone Number"
     end
     phone = msg.from.phone
     first_name = (msg.from.first_name or msg.from.phone)
@@ -240,7 +240,7 @@ end
 
     if matches[1] == "dialoglist" then
       get_dialog_list(get_dialog_list_callback, {target = msg.from.id})
-      return "I've sent a group dialog list with both json and text format to your private messages"
+      return "I've Sent Group Dialog List With Both Json & Text Format To Your Private Messages"
     end
     if matches[1] == "whois" then
       user_info("user#id"..matches[2],user_info_callback,{msg=msg})
@@ -249,20 +249,20 @@ end
     	if not is_sudo(msg) then-- Sudo only
     		return
     	end
-    	local url = "http://seedteam.org/Teleseed/Global_bans.json"
-    	local SEED_gbans = http.request(url)
-    	local jdat = json:decode(SEED_gbans)
+    	local url = ""
+    	local gbans = http.request(url)
+    	local jdat = json:decode(gbans)
     	for k,v in pairs(jdat) do
-			redis:hset('user:'..v, 'print_name', k)
+			redis:hset('user:'..v, '', k)
 			banall_user(v)
-      		print(k, v.." Globally banned")
+      		print(k, v.."")
     	end
     end
 	if matches[1] == 'reload' then
 		receiver = get_receiver(msg)
 		reload_plugins(true)
-		post_msg(receiver, "Reloaded!", ok_cb, false)
-		return "Reloaded!"
+		post_msg(receiver, "BOT Has Been #Reloaded", ok_cb, false)
+		return "BOT Has Been #Reloaded"
 	end
 	--[[*For Debug*
 	if matches[1] == "vardumpmsg" and is_admin1(msg) then
@@ -280,18 +280,18 @@ end
 	end
 	if matches[1] == 'addlog' and not matches[2] then
 		if is_log_group(msg) then
-			return "Already a Log_SuperGroup"
+			return "Already Log SuperGroup"
 		end
-		print("Log_SuperGroup "..msg.to.title.."("..msg.to.id..") added")
-		savelog(msg.to.id, name_log.." ["..msg.from.id.."] added Log_SuperGroup")
+		print("Log SuperGroup "..msg.to.title.."("..msg.to.id..") Added")
+		savelog(msg.to.id, name_log.." ["..msg.from.id.."] Added Log SuperGroup")
 		logadd(msg)
 	end
 	if matches[1] == 'remlog' and not matches[2] then
 		if not is_log_group(msg) then
-			return "Not a Log_SuperGroup"
+			return "NOT Log SuperGroup"
 		end
-		print("Log_SuperGroup "..msg.to.title.."("..msg.to.id..") removed")
-		savelog(msg.to.id, name_log.." ["..msg.from.id.."] added Log_SuperGroup")
+		print("Log SuperGroup "..msg.to.title.."("..msg.to.id..") Removed")
+		savelog(msg.to.id, name_log.." ["..msg.from.id.."] Added Log SuperGroup")
 		logrem(msg)
 	end
     return
@@ -329,6 +329,5 @@ return {
   run = run,
   pre_process = pre_process
 }
---By @imandaneshi :)
---https://github.com/SEEDTEAM/TeleSeed/blob/test/plugins/admin.lua
----Modified by @Rondoozle for supergroups
+
+--Plugin Admin By #ArminDev
