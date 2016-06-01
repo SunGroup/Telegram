@@ -236,6 +236,7 @@ function create_config( )
         "photo",
 	"plugins",
 	"rem",
+	"share",
 	"send",
 	"server",
 	"supergroup",
