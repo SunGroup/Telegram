@@ -4,8 +4,8 @@ if not result.phone then
 send_large_msg(extra.receiver, "شماره تماس فرد مورد نظر یافت نشد", ok_cb, false)
 elseif result.phone then
 local phone = '+'..result.phone
-local first = result.id
-local last = result.id
+local first = "‌"
+local last = "‌"
 if result.first_name then
 first = result.first_name
 end
@@ -22,8 +22,8 @@ if not result.phone then
 send_large_msg(extra.receiver, "شماره تماس فرد مورد نظر یافت نشد", ok_cb, false)
 elseif result.phone then
 local phone = '+'..result.phone
-local first = result.id
-local last = result.id
+local first = "‌"
+local last = "‌"
 if result.first_name then
 first = result.first_name
 end
@@ -40,8 +40,8 @@ if not result.from.phone then
 send_large_msg(extra.receiver, "شماره تماس فرد مورد نظر یافت نشد", ok_cb, false)
 elseif result.from.phone then
 local phone = '+'..result.from.phone
-local first = result.from.id
-local last = result.from.id
+local first = "‌"
+local last = "‌"
 if result.from.first_name then
 first = result.from.first_name
 end
@@ -76,4 +76,4 @@ patterns = {
 "^[!/#]([Ss]hare)$"
 },
 run = run
-}         
+}        
